@@ -15,10 +15,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const calendarCleanup = initCalendar();
   const habitsCleanup = initHabits();
   const bucketCleanup = initBucket();
-
   // 3. Navigation setup
   const navItems = document.querySelectorAll('.nav-item');
   const pageViews = document.querySelectorAll('.page-view');
+  
+  // Mobile elements for sidebar toggling
+  const menuToggleBtn = document.getElementById('menu-toggle-btn');
+  const sidebarAside = document.getElementById('sidebar-aside');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+  function closeSidebar() {
+    if (sidebarAside) sidebarAside.classList.remove('open');
+    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+  }
+
+  if (menuToggleBtn) {
+    menuToggleBtn.addEventListener('click', () => {
+      if (sidebarAside) sidebarAside.classList.toggle('open');
+      if (sidebarOverlay) sidebarOverlay.classList.toggle('active');
+    });
+  }
+
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener('click', closeSidebar);
+  }
 
   navItems.forEach(item => {
     item.addEventListener('click', () => {
@@ -36,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
           view.classList.remove('active');
         }
       });
+
+      // Close sidebar drawer if on mobile view
+      closeSidebar();
 
       // When switching pages, trigger a state sync so stats update
       store.notify('dataChanged', null);
@@ -90,16 +113,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5. Theme Settings Manager
   function initTheme() {
     const themeBtn = document.getElementById('theme-btn');
+    const themeBtnMobile = document.getElementById('theme-btn-mobile');
     const activeTheme = store.getTheme();
     
     applyTheme(activeTheme);
     
+    const toggleThemeCallback = () => {
+      const currentTheme = store.getTheme();
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      store.setTheme(nextTheme);
+    };
+
     if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const currentTheme = store.getTheme();
-        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        store.setTheme(nextTheme);
-      });
+      themeBtn.addEventListener('click', toggleThemeCallback);
+    }
+    if (themeBtnMobile) {
+      themeBtnMobile.addEventListener('click', toggleThemeCallback);
     }
 
     // React to store theme adjustments (for multi-module sync)

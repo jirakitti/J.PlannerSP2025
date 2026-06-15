@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J.Tracking — Personal Productivity Planner</title>
+  <link rel="stylesheet" href="./css/style.css">
+  
+  <!-- Meta tags for SEO best practices -->
+  <meta name="description" content="J.Tracking is a Functional Minimalist Productivity Planner featuring countdowns, task grids, habit tracking and bucket lists.">
+  <meta name="keywords" content="productivity, planner, habits tracker, task manager, calendar, goal planner">
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside>
+    <div>
+      <div class="logo-container">
+        <div class="logo-icon">J</div>
+        <h1 class="logo-text" id="logo-title">J.Tracking</h1>
+      </div>
+      
+      <nav aria-label="Main Navigation">
+        <button class="nav-item active" data-page="dashboard" id="nav-dashboard">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="9"></rect>
+            <rect x="14" y="3" width="7" height="5"></rect>
+            <rect x="14" y="12" width="7" height="9"></rect>
+            <rect x="3" y="16" width="7" height="5"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+        
+        <button class="nav-item" data-page="calendar" id="nav-calendar">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>Tasks & Calendar</span>
+        </button>
+        
+        <button class="nav-item" data-page="habits" id="nav-habits">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <span>Habit Tracker</span>
+        </button>
+        
+        <button class="nav-item" data-page="bucket" id="nav-bucket">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Bucket List</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-toggle-container">
+      <button class="theme-btn" id="theme-btn" aria-label="Toggle Theme Mode">
+        <div class="theme-status">
+          <span id="theme-status-lbl">Dark Mode</span>
+        </div>
+        <div class="theme-switch-track" aria-hidden="true">
+          <div class="theme-switch-thumb"></div>
+        </div>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Workspace -->
+  <main>
+    
+    <!-- Countdown Banner (Universal) -->
+    <header class="countdown-banner" id="universal-banner">
+      <div class="countdown-info">
+        <div class="countdown-subtitle">Target Milestone: 22 Dec 2026</div>
+        <h2 class="countdown-title">CRITICAL PATH COUNTDOWN</h2>
+        <div class="countdown-desc">Harness every second. Stay disciplined. Achieve the vision.</div>
+      </div>
+      <div class="countdown-numbers">
+        <div class="countdown-stat">
+          <div class="countdown-value" id="countdown-days-val">-- Days</div>
+          <div class="countdown-label">Total Days</div>
+        </div>
+        <div class="countdown-stat">
+          <div class="countdown-value" id="countdown-months-days-val">-- Mo, -- Days</div>
+          <div class="countdown-label">Relative Split</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Views Container -->
+    
+    <!-- 1. Dashboard Page -->
+    <section class="page-view active" id="dashboard-page" aria-label="Dashboard Details">
+      <div class="dashboard-grid">
+        
+        <!-- Battery Circle -->
+        <div class="dashboard-card glass" id="battery-score-card">
+          <div class="card-header-title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            <h2>Productivity Battery</h2>
+          </div>
+          
+          <div class="battery-container">
+            <div class="battery-svg-wrapper">
+              <svg viewBox="0 0 200 200">
+                <defs>
+                  <linearGradient id="batteryGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--accent)" />
+                    <stop offset="100%" stop-color="var(--accent-light)" />
+                  </linearGradient>
+                </defs>
+                <circle class="battery-track" cx="100" cy="100" r="90" />
+                <circle class="battery-fill" cx="100" cy="100" r="90" />
+              </svg>
+              <div class="battery-text-center">
+                <span class="battery-percentage" id="battery-pct-value">0%</span>
+                <span class="battery-label">Capacity</span>
+              </div>
+            </div>
+            <div class="battery-status-tag" id="battery-status-tag-el">Steady Pace</div>
+          </div>
+        </div>
+
+        <!-- Coach & Stats Column -->
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+          
+          <!-- AI Coach Section -->
+          <div class="dashboard-card glass" id="coach-card">
+            <div class="card-header-title">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <h2>AI Performance Coach</h2>
+            </div>
+            <div class="coach-section">
+              <div class="coach-header">
+                <div class="coach-avatar">J</div>
+                <div class="coach-name">Jarvis Coach</div>
+              </div>
+              <div class="coach-bubble">
+                <p id="coach-message">Initializing advisor assessment...</p>
+                <p class="coach-advice" id="coach-advice">Loading recommendations...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Mini Grid -->
+          <div class="stats-grid">
+            <div class="stat-card glass" id="stat-tasks-box">
+              <div class="stat-icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 11 12 14 22 4"></polyline>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+              </div>
+              <span class="stat-num" id="stat-tasks-today">0/0</span>
+              <span class="stat-lbl">Tasks Done Today</span>
+            </div>
+            
+            <div class="stat-card glass" id="stat-habits-box">
+              <div class="stat-icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+              <span class="stat-num" id="stat-habits-today">0/0</span>
+              <span class="stat-lbl">Habits Checked Today</span>
+            </div>
+            
+            <div class="stat-card glass" id="stat-bucket-box">
+              <div class="stat-icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <span class="stat-num" id="stat-bucket-completed">0/0</span>
+              <span class="stat-lbl">Bucket Goals Met</span>
+            </div>
+          </div>
+
+          <!-- Motivational Quote -->
+          <div class="quote-card glass" id="quote-card-el">
+            <p class="quote-text" id="quote-text">"Small daily improvements over time lead to stunning results."</p>
+            <span class="quote-author" id="quote-author">Robin Sharma</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Tasks & Calendar Page -->
+    <section class="page-view" id="calendar-page" aria-label="Tasks and Calendar Details">
+      
+      <!-- Top Calendar Selector & Action buttons -->
+      <div class="calendar-header-actions">
+        <div class="calendar-month-selector">
+          <button class="month-btn" id="prev-month-btn" aria-label="Previous Month">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <span class="current-month-display" id="month-display">June 2026</span>
+          <button class="month-btn" id="next-month-btn" aria-label="Next Month">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+        
+        <button class="btn btn-primary" id="btn-setup-fixed">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px;">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>ตั้งค่า Fixed List</span>
+        </button>
+      </div>
+
+      <!-- Mon-Sun Calendar Grid Layout -->
+      <div class="calendar-view-grid">
+        <div class="calendar-grid-container">
+          <div class="calendar-days-header">
+            <div class="calendar-day-label">Mon</div>
+            <div class="calendar-day-label">Tue</div>
+            <div class="calendar-day-label">Wed</div>
+            <div class="calendar-day-label">Thu</div>
+            <div class="calendar-day-label">Fri</div>
+            <div class="calendar-day-label">Sat</div>
+            <div class="calendar-day-label">Sun</div>
+          </div>
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Calendar day cells generated dynamically -->
+          </div>
+        </div>
+
+        <!-- Side/Bottom Panel for journaling and adding custom tasks -->
+        <div class="calendar-side-panel">
+          
+          <!-- Selected Day Title -->
+          <div class="panel-section glass" id="notes-journal-section">
+            <h3 class="panel-title" id="panel-date-header">
+              <span id="selected-date-label">Selected Date</span>
+            </h3>
+            
+            <!-- Journal notes -->
+            <div class="form-group" style="margin-top: 0.5rem;">
+              <label for="journal-notes">Daily Note / Journal</label>
+              <textarea class="journal-textarea" id="journal-notes" placeholder="Write down reflections, logs, or thoughts... (autosaved)"></textarea>
+            </div>
+          </div>
+
+          <!-- Custom Tasks Creator and List -->
+          <div class="panel-section glass" id="custom-tasks-section">
+            <h3 class="panel-title">Custom Tasks</h3>
+            
+            <div class="custom-task-creator">
+              <input type="text" class="text-input" id="input-custom-task" placeholder="Add custom task for this date..." aria-label="New Custom Task">
+              <button class="btn btn-primary" style="padding: 0.5rem 1rem;" id="btn-add-custom-task" aria-label="Add Task">Add</button>
+            </div>
+
+            <div class="custom-task-list" id="custom-task-list">
+              <!-- Custom tasks items generated dynamically -->
+            </div>
+          </div>
+
+          <!-- Completed Tasks Summary -->
+          <div class="panel-section glass" id="completed-summary-section">
+            <h3 class="panel-title">Completed Today</h3>
+            <ul class="completed-summary-list" id="completed-summary-list">
+              <!-- Lists of completed tasks -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Habit Tracker Page -->
+    <section class="page-view" id="habits-page" aria-label="Habits Tracking Details">
+      
+      <!-- Habit Header block -->
+      <div class="habit-header-bar">
+        <h2>Habit Tracker</h2>
+        <div class="custom-task-creator" style="max-width: 400px; flex-grow: 1;">
+          <input type="text" class="text-input" id="input-new-habit" placeholder="Establish new habit..." aria-label="New Habit Name">
+          <button class="btn btn-primary" id="btn-add-habit" aria-label="Create Habit">Create</button>
+        </div>
+      </div>
+
+      <!-- Habit tracking rows -->
+      <div class="habit-grid" id="habits-grid">
+        <!-- Habits cards rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- 4. Bucket List Page -->
+    <section class="page-view" id="bucket-page" aria-label="Bucket Goals Details">
+      
+      <!-- Filter and Add Goals -->
+      <div class="bucket-header-bar">
+        <div class="bucket-categories-filter" id="bucket-filters">
+          <!-- Filter chips rendered dynamically -->
+        </div>
+        <button class="btn btn-primary" id="btn-add-goal">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px;">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>Add Goal</span>
+        </button>
+      </div>
+
+      <!-- Goals grid list -->
+      <div class="bucket-grid" id="bucket-grid">
+        <!-- Goal items rendered dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODALS -->
+
+  <!-- A. Fixed Tasks Configuration Modal -->
+  <div class="modal-overlay" id="fixed-tasks-modal">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h3 id="fixed-modal-title">Fixed Month Tasks Settings</h3>
+        <button class="modal-close" id="fixed-modal-close" aria-label="Close Modal">&times;</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 1rem;">
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          These template tasks will appear on every single day of the month. Perfect for recurring routines.
+        </p>
+        
+        <div class="custom-task-creator">
+          <input type="text" class="text-input" id="input-new-fixed" placeholder="New fixed template task..." aria-label="New Fixed Task Name">
+          <button class="btn btn-primary" id="btn-add-fixed" aria-label="Add Fixed Task">Add</button>
+        </div>
+
+        <div class="custom-task-list" id="fixed-tasks-list-modal" style="margin-top: 0.5rem; max-height: 200px;">
+          <!-- List of fixed tasks with delete buttons -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. Bucket Goal Creation/Edit Modal -->
+  <div class="modal-overlay" id="bucket-modal">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h3 id="bucket-modal-title">Add Bucket Goal</h3>
+        <button class="modal-close" id="bucket-modal-close" aria-label="Close Modal">&times;</button>
+      </div>
+      
+      <form id="bucket-form" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="form-group">
+          <label for="input-goal-title">Goal Title</label>
+          <input type="text" class="text-input" id="input-goal-title" placeholder="What is the life goal?" required>
+        </div>
+
+        <div class="form-group">
+          <label for="select-category">Category</label>
+          <select class="select-input" id="select-category">
+            <option value="Growth">Growth</option>
+            <option value="Career">Career</option>
+            <option value="Health">Health</option>
+            <option value="Travel">Travel</option>
+            <option value="Wealth">Wealth</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="input-target-date">Target Date</label>
+          <input type="date" class="text-input" id="input-target-date" style="color: var(--text);">
+        </div>
+
+        <!-- Subtasks manager -->
+        <div class="modal-subtasks-editor">
+          <label>Sub-tasks Checklist</label>
+          <div class="modal-subtask-input-row">
+            <input type="text" class="text-input" id="input-new-subtask" placeholder="Add milestone step..." aria-label="New Subtask">
+            <button class="btn btn-primary" style="padding: 0.5rem 1rem;" id="btn-add-subtask" type="button" aria-label="Add Subtask">Add</button>
+          </div>
+          <div class="modal-subtasks-list" id="modal-subtasks-list">
+            <!-- List of goal subtasks inside modal -->
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn" type="button" id="bucket-modal-close" style="background: transparent;">Cancel</button>
+          <button class="btn btn-primary" type="submit" id="btn-save-goal">Save Goal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- App Main Entry JavaScript -->
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

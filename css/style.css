@@ -1499,3 +1499,340 @@ main {
   display: flex;
   gap: 0.5rem;
 }
+
+/* ==========================================
+   MOBILE & TABLET RESPONSIVE STYLES
+   ========================================== */
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Layout shifts */
+  body {
+    flex-direction: column;
+  }
+
+  /* Aside acts as a bottom nav bar on mobile */
+  aside {
+    width: 100vw;
+    height: 65px;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    padding: 0 1rem;
+    border-right: none;
+    border-top: 1px solid var(--card-border);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    z-index: 999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  aside > div:first-child {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Floating Logo at top-left */
+  .logo-container {
+    position: fixed;
+    top: 1rem;
+    left: 1.5rem;
+    z-index: 1001;
+    margin-bottom: 0;
+    pointer-events: none;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.35rem;
+    pointer-events: auto;
+  }
+
+  .logo-text {
+    font-size: 1.35rem;
+  }
+
+  /* Horizontal bottom navigation */
+  nav {
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nav-item {
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 0;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    width: 25%;
+    height: 100%;
+    border-radius: 0;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .nav-item svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-item:hover svg {
+    transform: none;
+  }
+
+  /* Top indicator line for active bottom nav item */
+  .nav-item::before {
+    left: 20%;
+    right: 20%;
+    top: 0;
+    bottom: auto;
+    height: 3px;
+    width: 60%;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .nav-item.active::before {
+    transform: scaleY(1);
+  }
+
+  /* Floating Theme Switcher at top-right */
+  .theme-toggle-container {
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 1001;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    width: auto;
+  }
+
+  .theme-status {
+    display: none !important; /* Hide labels on mobile */
+  }
+
+  .theme-btn {
+    padding: 0.5rem;
+    border-radius: var(--radius-full);
+    width: 56px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Main body container adjusts for top header & bottom nav spacing */
+  main {
+    margin-left: 0;
+    width: 100%;
+    padding: 5rem 1rem 5.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  /* Countdown Banner */
+  .countdown-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .countdown-banner::after {
+    top: -20%;
+    right: -20%;
+  }
+
+  .countdown-numbers {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .countdown-value {
+    font-size: 2.5rem;
+  }
+
+  .countdown-stat {
+    align-items: center;
+  }
+
+  /* Calendar page mobile layout */
+  .calendar-view-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .calendar-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .calendar-month-selector {
+    justify-content: center;
+  }
+
+  .calendar-header-actions .btn {
+    justify-content: center;
+  }
+
+  /* Habit card stacking on mobile */
+  .habit-card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .habit-streaks-box {
+    justify-content: center;
+  }
+
+  .habit-streak-stat {
+    align-items: center;
+  }
+
+  /* Bucket goal grid */
+  .bucket-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bucket-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .bucket-categories-filter {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bucket-categories-filter::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for category selector */
+  }
+
+  .filter-chip {
+    flex-shrink: 0;
+  }
+
+  .bucket-header-bar .btn {
+    justify-content: center;
+  }
+}
+
+/* Specific styling for smaller mobile screens */
+@media (max-width: 600px) {
+  /* Hide text logo on small phones to save header space */
+  .logo-text {
+    display: none !important;
+  }
+
+  /* Calendar cell minimization logic for mobile */
+  .calendar-grid {
+    grid-auto-rows: minmax(70px, auto);
+  }
+
+  .calendar-cell {
+    min-height: 70px;
+    padding: 0.4rem;
+  }
+
+  .cell-tasks-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: center;
+    max-height: 36px;
+    margin-top: 4px;
+    padding-right: 0;
+    overflow-y: hidden;
+  }
+
+  .cell-task-item {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+  }
+
+  /* Hide labels inside cell, rendering checkboxes as contribution grid dots */
+  .cell-task-item label {
+    display: none !important;
+  }
+
+  .cell-checkbox {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: none;
+    margin: 0;
+    pointer-events: none;
+    background: var(--card-border);
+    transition: background var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .cell-checkbox:checked {
+    background: var(--accent);
+    box-shadow: 0 0 4px var(--accent-glow);
+  }
+
+  .cell-checkbox::after {
+    display: none !important; /* Disable check marks on dots */
+  }
+
+  /* Reduce habit bubble sizes to prevent overflow */
+  .habit-bubbles-row {
+    gap: 0.4rem;
+  }
+
+  .habit-bubble {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+
+  /* Dashboard stats row grid becomes single column on ultra-narrow */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .stat-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+    text-align: left;
+  }
+  
+  .stat-card .stat-num {
+    margin-left: auto;
+  }
+}
+

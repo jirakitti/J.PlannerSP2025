@@ -1,0 +1,19 @@
+{
+  "name": "Personal Operating System",
+  "short_name": "Personal OS",
+  "description": "A command center for discipline, planning, habits, goals, and study-abroad preparation.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101411",
+  "theme_color": "#101411",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
